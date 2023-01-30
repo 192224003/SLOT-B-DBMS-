@@ -1,0 +1,50 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| information        |
+| mysql              |
+| performance_schema |
+| student            |
+| test               |
++--------------------+
+6 rows in set (0.41 sec)
+
+mysql> use mysql;
+Database changed
+mysql> create table bank(sno int,
+    -> cust_name varchar(100),
+    -> acc_no int,
+    -> balance int(100),
+    -> cust_branch char(100));
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> insert into bank values(1,'ramesh',12378,100000,'adyar');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into bank values(2,'sam',12367,152500,'mylapore');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select*from bank where balance>=10000;
++------+-----------+--------+---------+-------------+
+| sno  | cust_name | acc_no | balance | cust_branch |
++------+-----------+--------+---------+-------------+
+|    1 | ramesh    |  12378 |  100000 | adyar       |
+|    2 | sam       |  12367 |  152500 | mylapore    |
++------+-----------+--------+---------+-------------+
+2 rows in set (0.06 sec)
+
+mysql> update bank set cust_branch='poonamalle' where cust_branch='mylapore';
+Query OK, 1 row affected (0.16 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from bank
+    -> ;
++------+-----------+--------+---------+-------------+
+| sno  | cust_name | acc_no | balance | cust_branch |
++------+-----------+--------+---------+-------------+
+|    1 | ramesh    |  12378 |  100000 | adyar       |
+|    2 | sam       |  12367 |  152500 | poonamalle  |
++------+-----------+--------+---------+-------------+
+2 rows in set (0.02 sec)
