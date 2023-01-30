@@ -1,0 +1,269 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| information        |
+| mysql              |
+| performance_schema |
+| student            |
+| test               |
++--------------------+
+6 rows in set (0.14 sec)
+
+mysql> use test;
+Database changed
+mysql> create table college(sno int,name char(100),regno int(100),dept char(100),
+    -> age int(100),
+    -> DOB int(100),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+mysql> create table college(sno int,name char(100),regno int(100),dept char(100),
+    -> age int(100),
+    -> DOB int(100));
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> desc college;
++-------+-----------+------+-----+---------+-------+
+| Field | Type      | Null | Key | Default | Extra |
++-------+-----------+------+-----+---------+-------+
+| sno   | int(11)   | YES  |     | NULL    |       |
+| name  | char(100) | YES  |     | NULL    |       |
+| regno | int(100)  | YES  |     | NULL    |       |
+| dept  | char(100) | YES  |     | NULL    |       |
+| age   | int(100)  | YES  |     | NULL    |       |
+| DOB   | int(100)  | YES  |     | NULL    |       |
++-------+-----------+------+-----+---------+-------+
+6 rows in set (0.27 sec)
+
+mysql> alter table college add gender char(100);
+Query OK, 0 rows affected (0.38 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc college;
++--------+-----------+------+-----+---------+-------+
+| Field  | Type      | Null | Key | Default | Extra |
++--------+-----------+------+-----+---------+-------+
+| sno    | int(11)   | YES  |     | NULL    |       |
+| name   | char(100) | YES  |     | NULL    |       |
+| regno  | int(100)  | YES  |     | NULL    |       |
+| dept   | char(100) | YES  |     | NULL    |       |
+| age    | int(100)  | YES  |     | NULL    |       |
+| DOB    | int(100)  | YES  |     | NULL    |       |
+| gender | char(100) | YES  |     | NULL    |       |
++--------+-----------+------+-----+---------+-------+
+7 rows in set (0.02 sec)
+
+mysql> alter table college add primary key(age);
+Query OK, 0 rows affected (0.26 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table college add check(gender='M' or 'F');
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into college values(1,'Abdul',1918,'cse',19,2004,'M');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select*from college;
++------+-------+-------+------+-----+------+--------+
+| sno  | name  | regno | dept | age | DOB  | gender |
++------+-------+-------+------+-----+------+--------+
+|    1 | Abdul |  1918 | cse  |  19 | 2004 | M      |
++------+-------+-------+------+-----+------+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into college values(2,'Sri',11382,'cse',19,2004,'F');
+ERROR 1062 (23000): Duplicate entry '19' for key 'PRIMARY'
+mysql> select*from college;
++------+-------+-------+------+-----+------+--------+
+| sno  | name  | regno | dept | age | DOB  | gender |
++------+-------+-------+------+-----+------+--------+
+|    1 | Abdul |  1918 | cse  |  19 | 2004 | M      |
++------+-------+-------+------+-----+------+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into college values(2,'Sri',11382,'cse',18,2005,'F');
+Query OK, 1 row affected (0.51 sec)
+
+mysql> insert into college values(3,'Hari',11322,'mech',20,2002,'M');
+Query OK, 1 row affected (0.25 sec)
+
+mysql> select*from college;
++------+-------+-------+------+-----+------+--------+
+| sno  | name  | regno | dept | age | DOB  | gender |
++------+-------+-------+------+-----+------+--------+
+|    2 | Sri   | 11382 | cse  |  18 | 2005 | F      |
+|    1 | Abdul |  1918 | cse  |  19 | 2004 | M      |
+|    3 | Hari  | 11322 | mech |  20 | 2002 | M      |
++------+-------+-------+------+-----+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update college set regno=11322 where name='ram';
+Query OK, 0 rows affected (0.04 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select*from college;
++------+-------+-------+------+-----+------+--------+
+| sno  | name  | regno | dept | age | DOB  | gender |
++------+-------+-------+------+-----+------+--------+
+|    2 | Sri   | 11382 | cse  |  18 | 2005 | F      |
+|    1 | Abdul |  1918 | cse  |  19 | 2004 | M      |
+|    3 | Hari  | 11322 | mech |  20 | 2002 | M      |
++------+-------+-------+------+-----+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select*from college;
++------+-------+-------+------+-----+------+--------+
+| sno  | name  | regno | dept | age | DOB  | gender |
++------+-------+-------+------+-----+------+--------+
+|    2 | Sri   | 11382 | cse  |  18 | 2005 | F      |
+|    1 | Abdul |  1918 | cse  |  19 | 2004 | M      |
+|    3 | Hari  | 11322 | mech |  20 | 2002 | M      |
++------+-------+-------+------+-----+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update college set dept='cse' where regno=11322;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from college;
++------+-------+-------+------+-----+------+--------+
+| sno  | name  | regno | dept | age | DOB  | gender |
++------+-------+-------+------+-----+------+--------+
+|    2 | Sri   | 11382 | cse  |  18 | 2005 | F      |
+|    1 | Abdul |  1918 | cse  |  19 | 2004 | M      |
+|    3 | Hari  | 11322 | cse  |  20 | 2002 | M      |
++------+-------+-------+------+-----+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into college values(4,'monica',11433,'bio',17,2006,'F');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from college;
++------+--------+-------+------+-----+------+--------+
+| sno  | name   | regno | dept | age | DOB  | gender |
++------+--------+-------+------+-----+------+--------+
+|    4 | monica | 11433 | bio  |  17 | 2006 | F      |
+|    2 | Sri    | 11382 | cse  |  18 | 2005 | F      |
+|    1 | Abdul  |  1918 | cse  |  19 | 2004 | M      |
+|    3 | Hari   | 11322 | cse  |  20 | 2002 | M      |
++------+--------+-------+------+-----+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select name,dept from college where gender='F';
++--------+------+
+| name   | dept |
++--------+------+
+| monica | bio  |
+| Sri    | cse  |
++--------+------+
+2 rows in set (0.06 sec)
+
+mysql> select name from college where name do not contain six letters;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'do not contain six letters' at line 1
+mysql> select *from college where 'name' like '%a';
+Empty set (0.06 sec)
+
+mysql> select name from college where 'name' like '%a';
+Empty set (0.00 sec)
+
+mysql> select*from college;
++------+--------+-------+------+-----+------+--------+
+| sno  | name   | regno | dept | age | DOB  | gender |
++------+--------+-------+------+-----+------+--------+
+|    4 | monica | 11433 | bio  |  17 | 2006 | F      |
+|    2 | Sri    | 11382 | cse  |  18 | 2005 | F      |
+|    1 | Abdul  |  1918 | cse  |  19 | 2004 | M      |
+|    3 | Hari   | 11322 | cse  |  20 | 2002 | M      |
++------+--------+-------+------+-----+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select name,dept,age from college order by sno;
++--------+------+-----+
+| name   | dept | age |
++--------+------+-----+
+| Abdul  | cse  |  19 |
+| Sri    | cse  |  18 |
+| Hari   | cse  |  20 |
+| monica | bio  |  17 |
++--------+------+-----+
+4 rows in set (0.35 sec)
+
+mysql> select*from college order by DOB;
++------+--------+-------+------+-----+------+--------+
+| sno  | name   | regno | dept | age | DOB  | gender |
++------+--------+-------+------+-----+------+--------+
+|    3 | Hari   | 11322 | cse  |  20 | 2002 | M      |
+|    1 | Abdul  |  1918 | cse  |  19 | 2004 | M      |
+|    2 | Sri    | 11382 | cse  |  18 | 2005 | F      |
+|    4 | monica | 11433 | bio  |  17 | 2006 | F      |
++------+--------+-------+------+-----+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select name,regno from college order by desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc' at line 1
+mysql> select name,regno from college order by name[DESC],regno[DESC];
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[DESC],regno[DESC]' at line 1
+mysql> select*from college order by DESC;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DESC' at line 1
+mysql> alter table college add marks int(100);
+Query OK, 4 rows affected (0.31 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select*from college;
++------+--------+-------+------+-----+------+--------+-------+
+| sno  | name   | regno | dept | age | DOB  | gender | marks |
++------+--------+-------+------+-----+------+--------+-------+
+|    4 | monica | 11433 | bio  |  17 | 2006 | F      |  NULL |
+|    2 | Sri    | 11382 | cse  |  18 | 2005 | F      |  NULL |
+|    1 | Abdul  |  1918 | cse  |  19 | 2004 | M      |  NULL |
+|    3 | Hari   | 11322 | cse  |  20 | 2002 | M      |  NULL |
++------+--------+-------+------+-----+------+--------+-------+
+4 rows in set (0.00 sec)
+
+mysql> update college set marks=90 where name='Sri';
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from college;
++------+--------+-------+------+-----+------+--------+-------+
+| sno  | name   | regno | dept | age | DOB  | gender | marks |
++------+--------+-------+------+-----+------+--------+-------+
+|    4 | monica | 11433 | bio  |  17 | 2006 | F      |  NULL |
+|    2 | Sri    | 11382 | cse  |  18 | 2005 | F      |    90 |
+|    1 | Abdul  |  1918 | cse  |  19 | 2004 | M      |  NULL |
+|    3 | Hari   | 11322 | cse  |  20 | 2002 | M      |  NULL |
++------+--------+-------+------+-----+------+--------+-------+
+4 rows in set (0.00 sec)
+
+mysql> update college set marks=89 where name='Abdul';
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update college set marks=80 where name='Hari';
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update college set marks=95 where name='monica';
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from college where marks>90;
++------+--------+-------+------+-----+------+--------+-------+
+| sno  | name   | regno | dept | age | DOB  | gender | marks |
++------+--------+-------+------+-----+------+--------+-------+
+|    4 | monica | 11433 | bio  |  17 | 2006 | F      |    95 |
++------+--------+-------+------+-----+------+--------+-------+
+1 row in set (0.00 sec)
+
+mysql> select *from college;
++------+--------+-------+------+-----+------+--------+-------+
+| sno  | name   | regno | dept | age | DOB  | gender | marks |
++------+--------+-------+------+-----+------+--------+-------+
+|    4 | monica | 11433 | bio  |  17 | 2006 | F      |    95 |
+|    2 | Sri    | 11382 | cse  |  18 | 2005 | F      |    90 |
+|    1 | Abdul  |  1918 | cse  |  19 | 2004 | M      |    89 |
+|    3 | Hari   | 11322 | cse  |  20 | 2002 | M      |    80 |
++------+--------+-------+------+-----+------+--------+-------+
+4 rows in set (0.01 sec)
