@@ -1,0 +1,131 @@
+mysql> use data;
+Database changed
+mysql> create table student(
+    -> sno int,
+    -> name char(100),
+    -> course char(100));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc student;
++--------+-----------+------+-----+---------+-------+
+| Field  | Type      | Null | Key | Default | Extra |
++--------+-----------+------+-----+---------+-------+
+| sno    | int(11)   | YES  |     | NULL    |       |
+| name   | char(100) | YES  |     | NULL    |       |
+| course | char(100) | YES  |     | NULL    |       |
++--------+-----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into student values(1,'surya prakash','AI DS');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into student values(2,'surya','EEE');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into student values(3,'prakash','IT');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from student;
++------+---------------+--------+
+| sno  | name          | course |
++------+---------------+--------+
+|    1 | surya prakash | AI DS  |
+|    2 | surya         | EEE    |
+|    3 | prakash       | IT     |
++------+---------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select name,course from student group by course;
++---------------+--------+
+| name          | course |
++---------------+--------+
+| surya prakash | AI DS  |
+| surya         | EEE    |
+| prakash       | IT     |
++---------------+--------+
+3 rows in set (0.03 sec)
+mysql> select*from student;
++------+---------------+--------+
+| sno  | name          | course |
++------+---------------+--------+
+|    1 | surya prakash | AI DS  |
+|    2 | surya         | EEE    |
+|    2 | prakash       | IT     |
++------+---------------+--------+
+3 rows in set (0.01 sec)
+
+mysql> update student set sno=2 where name='surya';
+Query OK, 0 rows affected (0.02 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select
+    -> *from student;
++------+---------------+--------+
+| sno  | name          | course |
++------+---------------+--------+
+|    1 | surya prakash | AI DS  |
+|    2 | surya         | EEE    |
+|    2 | prakash       | IT     |
++------+---------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update student set sno=3 where name='surya';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from student;
++------+---------------+--------+
+| sno  | name          | course |
++------+---------------+--------+
+|    1 | surya prakash | AI DS  |
+|    3 | surya         | EEE    |
+|    2 | prakash       | IT     |
++------+---------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select*from student order by sno;
++------+---------------+--------+
+| sno  | name          | course |
++------+---------------+--------+
+|    1 | surya prakash | AI DS  |
+|    2 | prakash       | IT     |
+|    3 | surya         | EEE    |
++------+---------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update student set sno=3 where name='surya prakash';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set sno=1 where name='surya';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from student;
++------+---------------+--------+
+| sno  | name          | course |
++------+---------------+--------+
+|    3 | surya prakash | AI DS  |
+|    1 | surya         | EEE    |
+|    2 | prakash       | IT     |
++------+---------------+--------+
+
+mysql> select*from student order by sno desc;
++------+---------------+--------+
+| sno  | name          | course |
++------+---------------+--------+
+|    3 | surya prakash | AI DS  |
+|    2 | prakash       | IT     |
+|    1 | surya         | EEE    |
++------+---------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select*from student order by course desc;
++------+---------------+--------+
+| sno  | name          | course |
++------+---------------+--------+
+|    2 | prakash       | IT     |
+|    1 | surya         | EEE    |
+|    3 | surya prakash | AI DS  |
++------+---------------+--------+
+3 rows in set (0.00 sec)
